@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product Detail!{% endblock %}
+
+{% block body %}
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5 mb-4 mb-md-0">
+
+        <div class="product-image-slider">
+        {% if pro.image %}
+                  {% set img = pro.image %}
+          <div data-image="{{asset('images/'~img)}}">
+            {# <img class="img-fluid w-100" src="images/{{pro.image}}" alt="product-image"> #}
+             <img class="img-fluid" src="{{asset('images/'~img)}}" alt="Apple Watch">
+          </div>
+          {% else %}
+                    <img src="https://www.google.com/imgres?imgurl=https%3A%2F%2Ffile.tinnhac.com%2Fresize%2F600x-%2F2019%2F12%2F17%2F20191217175344-6383.png&imgrefurl=https%3A%2F%2Ftinnhac.com%2Fbao-nam-qua-nhung-anh-meme-cua-cac-ngoi-sao-sau-van-duoc-dan-tinh-ua-chuong-rai-tren-mang-xa-hoi-134961.html&tbnid=L9SRdRAn8I9fCM&vet=12ahUKEwjS9-Ks1PD8AhWmjNgFHRphA10QMygDegUIARC5AQ..i&docid=vyxwNLVwldLuuM&w=600&h=512&q=meme&ved=2ahUKEwjS9-Ks1PD8AhWmjNgFHRphA10QMygDegUIARC5AQ" alt="" class="mt-3 mb-3">
+                {% endif %}
+
+
+          <!-- <div data-image="images/showcase/showcase-2.png">
+            <img class="img-fluid w-100" src="images/showcase/showcase-2.png" alt="product-image">
+          </div> -->
+
+          <!-- <div data-image="images/showcase/showcase-3.png">
+            <img class="img-fluid w-100" src="images/showcase/showcase-3.png" alt="product-image">
+          </div>
+
+          <div data-image="images/showcase/showcase-4.png">
+            <img class="img-fluid w-100" src="images/showcase/showcase-4.png" alt="product-image">
+          </div> -->
+
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-7 offset-lg-1">
+        <h1 class="mb-4">{{pro.namepro}}</h1>
+        <!-- <p><strong>Colors: </strong>Black, White, Gray</p>
+        <p><strong>Sizes: </strong>Small, Medium, Large</p> -->
+        <p class="price py-4">${{pro.price}}
+          <!-- <s class="price">$30.00</s> -->
+        </p>
+
+        {% set proid = pro.id %}
+{% if app.user %}
+        <form action="/addone/{{proid}}">
+        <div>
+          <input type="number" name = "quantity" value ="1" min ="1"
+          style =" border-radius: 25px;
+          margin-bottom:20px" ></input>
+        </div>
+          
+            <button class="snipcart-add-item btn btn-main mb-5" data-item-id="apple-watch__25.00"
+              data-item-name="Apple Watch" data-item-image="images/{{pro.image}}" data-item-price="25.00"
+              data-item-url="products/product-1/" data-item-custom1-name="Choose Color"
+              data-item-custom1-options="Black|White|Gray" data-item-custom2-name="Choose Size"
+              data-item-custom2-options="Small|Medium|Large">Add to Cart
+            </button>
+          {% else %}
+            <form action="{{path('app_login')}}">
+        <div>
+          <input type="number" name = "quantity" value ="1" min ="1"
+          style =" border-radius: 25px;
+          margin-bottom:20px" ></input>
+        </div>
+          
+            <button class="snipcart-add-item btn btn-main mb-5" data-item-id="apple-watch__25.00"
+              data-item-name="Apple Watch" data-item-image="images/{{pro.image}}" data-item-price="25.00"
+              data-item-url="products/product-1/" data-item-custom1-name="Choose Color"
+              data-item-custom1-options="Black|White|Gray" data-item-custom2-name="Choose Size"
+              data-item-custom2-options="Small|Medium|Large">Add to Cart
+            </button>
+            {% endif %}
+
+            
+          </form>
+        
+        <div class="content">
+          <p>{{pro.infopro}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="plugins/jquery/jquery.js"></script>
+
+<script src="plugins/bootstrap/bootstrap.min.js"></script>
+
+<script src="plugins/slick/slick.min.js"></script>
+
+<script src="js/script.js"></script>
+</body>
+</html>
+{% endblock %}

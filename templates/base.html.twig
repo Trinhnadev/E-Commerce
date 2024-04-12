@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+           
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+            <link rel="stylesheet"
+        href="{{asset('styles/asm.css')}}">
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    
+    <body>
+    {% block header %}
+        <header class="navigation sticky-top bg-white">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="{{path('app_test')}}"> <img src="{{asset('images/logo.jpg')}}" alt="NTShop" width="100px">
+      </a>
+      <button class="navbar-toggler p-0 border-0" type="button" data-toggle="collapse" data-target="#navigation"
+        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse text-center" id="navigation">
+        <ul class="navbar-nav ml-auto mr-n0 mr-md-n3">
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{path('app_test')}}">Home</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{path('product')}}">Products</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{path('Blog')}}">Blog</a>
+          </li>
+          {% if is_granted('ROLE_ADMIN') %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#!" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manager <i class="tf-ion-chevron-down"></i></a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown03">
+              <li><a class="dropdown-item" href="{{path('managerProduct')}}">Product</a></li>
+              <li><a class="dropdown-item" href="{{path('managerAccount')}}">Account</a></li>
+              <li><a class="dropdown-item" href="{{path('managerBrand')}}">Brand</a></li>
+              <li><a class="dropdown-item" href="{{path('managerBill')}}">Bill</a></li>
+            </ul>
+          {# </li>
+           <li class="nav-item">
+            <a class="nav-link" href="{{path('managerProduct')}}">Manager</a>
+          </li> #}
+          {% endif %}
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#!" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Brand <i class="tf-ion-chevron-down"></i></a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown03">
+              {% for br in brand %}
+                
+                  <li><a class="dropdown-item" href ="{{path('branddetail',{id:br.id})}}" >{{br.namesup}}</a></li>
+                
+              {% endfor %}
+            </ul>
+          </li>
+
+          {# <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#!" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages <i class="tf-ion-chevron-down"></i></a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown03">
+              <li><a class="dropdown-item" href="{{path('blogdetails')}}">Blog Details</a></li>
+              
+              <li><a class="dropdown-item" href="{{path('policy')}}">Privacy Policy</a></li>
+              
+              
+             
+            </ul>
+          </li> #}
+
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="index.html#testimonial">Review</a>
+          </li> -->
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{path('contact')}}">Contact</a>
+          </li>
+          {% if app.user %}
+            
+           <p class="nav-link ">{{ app.user.Name }},</p>
+            <a class="nav-link" href="{{path('app_logout') }}"><i class="bi bi-door-open-fill"></i>Logout</a>
+
+          </li>
+            {% else %}
+             <li class="nav-item" >
+            <a class="nav-link" href="{{path('app_login')}}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{path('app_registration')}}">SignUp</a>
+          </li>
+          {% endif %}
+         
+              <form action="/search" class="h5 my-auto d-flex" method="GET">  
+            <input type="text" class="py-1" placeholder="Search" name="search" aria-label="Search"/>
+            <button type="submit" class="border-0 bg-white mx-2"><i class="fas fa-search"></i></button>
+          </form>
+          {% if app.user %}
+                  <div style = "font-size:35px; marigin-top:30px" ><a style = "color:black; " href="{{path('cart')}}"><i class="fa-sharp fa-solid fa-cart-shopping"></i></a></div>
+
+          {% else %}
+          <div style = "font-size:40px; marigin-top:30px" ><a style = "color:black; " href="{{path('app_login')}}"><i class="fa-sharp fa-solid fa-cart-shopping"></i></a></div>
+          {% endif %}
+        </ul>
+
+      </div>
+      
+    </nav>
+  </div>
+</header>
+    {% endblock %}
+        {% block body %}
+        {% endblock %}
+        {% block footer %}
+            <footer>
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block">
+          <a href="{{path('app_test')}}" class="mb-4 d-inline-block"> <img src="{{asset('images/logo.jpg')}}" alt="NTShop" width="100px"> </a>
+          <ul class="list-inline footer-menu">
+            
+            <li class="list-inline-item">
+              <a href="{{path('Blog')}}">Blog</a>
+            </li>
+            
+            <li class="list-inline-item">
+              <a href="{{path('contact')}}">Contact</a>
+            </li>
+            
+            <li class="list-inline-item">
+              <a href="{{path('term')}}">Terms &amp; Conditions</a>
+            </li>
+            
+            <li class="list-inline-item">
+              <a href="{{path('policy')}}">Privacy Policy</a>
+            </li>
+            
+          </ul>
+          <p class="copyright-text">Copyright &copy; 2021, Designed &amp; Developed By STStudio</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+        {% endblock %}
+    </body>
+<script src="{{asset('js/jquery/jquery.js')}}"></script>
+
+<script src="{{asset('js/bootstrap/bootstrap.min.js')}}"></script>
+
+<script src="{{asset('js/slick/slick.min.js')}}"></script>
+
+<script src="{{asset('js/script.js')}}"></script>
+</html>
