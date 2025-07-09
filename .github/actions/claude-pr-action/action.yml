@@ -44,7 +44,7 @@ runs:
     - name: Configure AWS Credentials (OIDC)
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        role-to-assume: ${{ inputs.aws-role-to-assume }}
+        role-to-assume: ${{ inputs.aws_role_to_assume }}
         aws-region: ${{ env.AWS_REGION }}
 
     - name: Run Claude Code
