@@ -54,10 +54,3 @@ runs:
         echo "Model: ${{ inputs.model }}"
         echo "Use Bedrock: ${{ inputs.use_bedrock }}"
         echo "✅ Claude logic executed here!"
-
-      with:
-        trigger_phrase: ${{ inputs.trigger_phrase }}
-        timeout_minutes: ${{ inputs.timeout_minutes }}
-        github_token: ${{ inputs.github_token }}
-        use_bedrock: ${{ inputs.use_bedrock }}
-        model: ${{ inputs.model }}
