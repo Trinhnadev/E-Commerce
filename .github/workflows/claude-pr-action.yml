@@ -7,18 +7,18 @@ permissions:
   id-token: write
 
 on:
-  # issue_comment:
-  #   types: [created]
-  # pull_request_review_comment:
-  #   types: [created]
-  # issues:
-  #   types: [opened, assigned]
-  #   branches: [fix/signup-redirect-issue]
-  # pull_request:
-  #   types: [opened, assigned]
-  #   branches: [fix/signup-redirect-issue]
-  push:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  issues:
+    types: [opened, assigned]
     branches: [fix/signup-redirect-issue]
+  pull_request:
+    types: [opened, assigned]
+    branches: [fix/signup-redirect-issue]
+  # push:
+  #   branches: [fix/signup-redirect-issue]
 jobs:
   claude-pr:
     if: |
