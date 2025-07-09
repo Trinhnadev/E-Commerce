@@ -38,7 +38,7 @@ runs:
         aws-region: ${{ env.AWS_REGION }}
 
     - name: Run Claude Code
-      uses: ./.github/actions/claude-pr-action
+      uses: ./.github/workflows/claude-pr-action.yml
       with:
         trigger_phrase: ${{ inputs.trigger_phrase }}
         timeout_minutes: ${{ inputs.timeout_minutes }}
