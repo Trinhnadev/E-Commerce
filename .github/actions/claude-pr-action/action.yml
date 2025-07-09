@@ -53,4 +53,4 @@ runs:
         echo "Timeout: ${{ inputs.timeout_minutes }}"
         echo "Model: ${{ inputs.model }}"
         echo "Use Bedrock: ${{ inputs.use_bedrock }}"
-        echo "✅ Claude logic executed here!"
+      shell: bash
