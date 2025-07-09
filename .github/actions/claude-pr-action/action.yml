@@ -51,38 +51,42 @@ runs:
       shell: bash
       run: |
         pip install boto3
-
+    
         python <<EOF
         import boto3
         import json
         import os
-
+    
         region = os.getenv("AWS_REGION", "us-east-1")
         model_id = os.getenv("MODEL")
         prompt = os.getenv("TRIGGER_PHRASE")
-
+    
         client = boto3.client("bedrock-runtime", region_name=region)
-
+    
         body = {
-            "prompt": prompt,
-            "max_tokens_to_sample": 512,
+            "messages": [
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            "max_tokens": 512,
             "temperature": 0.7,
-            "stop_sequences": ["\n\nHuman:"]
+            "anthropic_version": "bedrock-2023-05-31"
         }
-
+    
         response = client.invoke_model(
             modelId=model_id,
             contentType="application/json",
             accept="application/json",
             body=json.dumps(body)
         )
-
+    
         response_body = json.loads(response['body'].read().decode())
-        print("Claude response:", response_body.get("completion", response_body))
+        print("Claude response:", response_body.get("content", response_body))
         EOF
       env:
         AWS_REGION: ${{ env.AWS_REGION }}
         MODEL: ${{ inputs.model }}
-        TRIGGER_PHRASE: |
-          Human: ${{ inputs.trigger_phrase }}
-          Assistant:
+        TRIGGER_PHRASE: ${{ inputs.trigger_phrase }}
+
