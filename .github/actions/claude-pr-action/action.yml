@@ -47,8 +47,14 @@ runs:
         role-to-assume: ${{ inputs.aws_role_to_assume }}
         aws-region: ${{ env.AWS_REGION }}
 
-    - name: Run Claude Code
-      uses: ./.github/workflows/claude-pr-action
+    - name: Run Claude Code logic
+      run: |
+        echo "Trigger Phrase: ${{ inputs.trigger_phrase }}"
+        echo "Timeout: ${{ inputs.timeout_minutes }}"
+        echo "Model: ${{ inputs.model }}"
+        echo "Use Bedrock: ${{ inputs.use_bedrock }}"
+        echo "✅ Claude logic executed here!"
+
       with:
         trigger_phrase: ${{ inputs.trigger_phrase }}
         timeout_minutes: ${{ inputs.timeout_minutes }}
