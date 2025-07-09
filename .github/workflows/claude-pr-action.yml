@@ -40,3 +40,7 @@ jobs:
           github_token: ${{ steps.app-token.outputs.token }}
           use_bedrock: "true"
           model: "us.anthropic.claude-3-7-sonnet-20250219-v1:0"
+          app_id: ${{ secrets.APP_ID }}
+          app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
+          aws_role_to_assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+
