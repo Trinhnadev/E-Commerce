@@ -17,6 +17,15 @@ inputs:
   model:
     description: "Which Claude model to use"
     required: true
+  app_id:
+    description: "GitHub App ID"
+    required: true
+  app_private_key:
+    description: "GitHub App private key"
+    required: true
+  aws_role_to_assume:
+    description: "AWS Role to assume for Bedrock"
+    required: true
 
 runs:
   using: "composite"
