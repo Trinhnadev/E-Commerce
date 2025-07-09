@@ -47,7 +47,7 @@ runs:
         role-to-assume: ${{ inputs.aws_role_to_assume }}
         aws-region: ${{ env.AWS_REGION }}
 
-    - name: Run Claude via Bedrock with Python
+    - name: Call Claude Model via Bedrock (Python)
       shell: bash
       run: |
         pip install boto3
@@ -83,4 +83,6 @@ runs:
       env:
         AWS_REGION: ${{ env.AWS_REGION }}
         MODEL: ${{ inputs.model }}
-        TRIGGER_PHRASE: ${{ inputs.trigger_phrase }}
+        TRIGGER_PHRASE: |
+          Human: ${{ inputs.trigger_phrase }}
+          Assistant:
