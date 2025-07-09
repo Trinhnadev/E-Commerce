@@ -30,7 +30,7 @@ jobs:
       AWS_REGION: us-east-1       
     steps:
       - name: Call Claude PR Composite Action
-        uses: ./.github/actions/claude-pr-action/action.yml
+        uses: ./.github/actions/claude-pr-action
         with:
           trigger_phrase: "@claude"
           timeout_minutes: "60"
